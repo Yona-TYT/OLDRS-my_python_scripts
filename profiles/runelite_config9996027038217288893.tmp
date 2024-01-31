@@ -1,0 +1,23 @@
+#RuneLite configuration
+#Sun Jul 16 23:28:29 VET 2023
+rsprofile.rsprofile.nVNvVajJ.displayName=Simus
+rsprofile.rsprofile.nVNvVajJ.accountHash=-442538413540813923
+timetracking.rsprofile.nVNvVajJ.12594.4771=0\:1690930037
+timetracking.rsprofile.nVNvVajJ.botanist=false
+loottracker.rsprofile.nVNvVajJ.drops_NPC_Imp={"type"\:"NPC","name"\:"Imp","kills"\:9,"first"\:1690319088357,"last"\:1690679075340,"drops"\:[25766,9,877,2,1759,1,1470,2,956,1,1448,1,195,1,1472,1]}
+loottracker.rsprofile.nVNvVajJ.drops_NPC_Ogress\ Warrior={"type"\:"NPC","name"\:"Ogress Warrior","kills"\:31,"first"\:1690728596810,"last"\:1690732797427,"drops"\:[532,31,329,4,564,41,1621,5,886,81,1619,2,1197,2,561,10,556,71,995,3668,555,15,563,11,1617,1,557,16]}
+timetracking.rsprofile.nVNvVajJ.11828.4771=0\:1689558640
+timetracking.rsprofile.nVNvVajJ.12083.4775=0\:1689558722
+timetracking.rsprofile.nVNvVajJ.11570.4771=0\:1689564354
+loottracker.rsprofile.nVNvVajJ.drops_NPC_Skeleton={"type"\:"NPC","name"\:"Skeleton","kills"\:1,"first"\:1690416415120,"last"\:1690416415120,"drops"\:[526,1]}
+timetracking.rsprofile.nVNvVajJ.12854.4771=0\:1690727909
+itemCharge.rsprofile.nVNvVajJ.explorerRing=30
+timetracking.rsprofile.nVNvVajJ.12083.4771=0\:1689558722
+timetracking.rsprofile.nVNvVajJ.12083.4772=0\:1689558722
+rsprofile.rsprofile.nVNvVajJ.type=STANDARD
+loottracker.rsprofile.nVNvVajJ.drops_NPC_Hill\ Giant={"type"\:"NPC","name"\:"Hill Giant","kills"\:229,"first"\:1690372139955,"last"\:1690401714959,"drops"\:[532,229,995,2818,1203,9,561,18,884,45,558,15,1153,11,1295,5,225,18,1917,8,886,30,563,16,564,6,1446,3,1191,2,555,70,1619,1,560,2,562,2,20754,1,554,45]}
+timetracking.rsprofile.nVNvVajJ.12083.4773=0\:1689558722
+timetracking.rsprofile.nVNvVajJ.autoweed=0
+timetracking.rsprofile.nVNvVajJ.12596.4771=0\:1690229279
+timetracking.rsprofile.nVNvVajJ.12083.4774=0\:1689558722
+loottracker.rsprofile.nVNvVajJ.drops_NPC_Ogress\ Shaman={"type"\:"NPC","name"\:"Ogress Shaman","kills"\:1,"first"\:1690729797008,"last"\:1690729797008,"drops"\:[532,1,561,15]}

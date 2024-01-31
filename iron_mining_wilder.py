@@ -2,6 +2,8 @@ import pyautogui
 
 from time import sleep
 
+import argparse
+
 import keyborad_events
 
 import tools
@@ -10,7 +12,7 @@ import tools
 cent_x, cent_y = 575, 490
 
 	
-list_sch_a =	[	{"x":749, "y":792, "clic":1, "t":3.5, "c_r": 0, "c_i":0}, {"x":583, "y":603, "clic":1, "t":2, "c_r": 0, "c_i":0},
+list_sch_a =	[	{"x":749, "y":792, "clic":0, "t":3.5, "c_r": 0, "c_i":0}, {"x":583, "y":603, "clic":0, "t":2, "c_r": 0, "c_i":0},
 					{"x":554, "y":798, "clic":0, "t":2, "c_r": 1, "c_i":3}, {"x":224, "y":803, "clic":0, "t":2, "c_r": 1, "c_i":4}, 
 					{"x":320, "y":794, "clic":0, "t":2, "c_r": 0, "c_i":5}, {"x":388, "y":724, "clic":0, "t":2, "c_r": 0, "c_i":6}, 
 					{"x":426, "y":716, "clic":0, "t":2, "c_r": 3, "c_i":-1}
@@ -21,6 +23,14 @@ list_sch_b =	[
 					{"x":757, "y":277, "clic":0, "t":2, "c_r": 1, "c_i":3},
 					{"x":787, "y":300, "clic":0, "t":2, "c_r": 1, "c_i":4}, {"x":580, "y":260, "clic":0, "t":2, "c_r": 0, "c_i":5}, 
 					{"x":448, "y":296, "clic":0, "t":2, "c_r": 0, "c_i":6}, {"x":593, "y":510, "clic":3, "t":2, "c_r": 2, "c_i":7}
+				]
+
+list_sch_pvb =	[	
+					{"x":690, "y":315, "clic":0, "t":3, "c_r": 0, "c_i":1}, {"x":712, "y":321, "clic":0, "t":2, "c_r": 0, "c_i":2},
+					{"x":757, "y":277, "clic":0, "t":2, "c_r": 1, "c_i":3},
+					{"x":787, "y":300, "clic":0, "t":2, "c_r": 1, "c_i":4}, {"x":580, "y":260, "clic":0, "t":2, "c_r": 0, "c_i":5}, 
+					{"x":581, "y":231, "clic":0, "t":2, "c_r": 0, "c_i":6}, {"x":439, "y":420, "clic":1, "t":2, "c_r": 2, "c_i":7},
+					{"x":610, "y":587, "clic":0, "t":3, "c_r": 2, "c_i":7}
 				]
 
 list_sch_min =	[{"x":582, "y":393, "clic":0, "t":3.5, "c_r": 3, "c_i":0}]
@@ -49,7 +59,7 @@ def mining_iron():
 			print("Exit Mining.. Delay: %f s  Px IV: %s" % (0, px_inv))
 			return 0
 
-		if(repeat > 20):
+		if(repeat > clic_max):
 			repeat = 0
 			pyautogui.moveTo(c_x, c_y)
 			sleep(0.5)
@@ -78,7 +88,7 @@ def mining_iron():
 
 		min_count = 0
 		min_max = 30
-		while (px_iron.blue <250):
+		while (px_iron.blue < 250):
 			print("Mining--Waiting... min-Count %d, Pixel %s" % (min_count, px_iron))
 			if(min_count>min_max):
 				min_count = 0
@@ -98,7 +108,7 @@ def mining_iron():
 				print("Exit Mining.. Delay: %f s  Px IV: %s" % (0, px_inv))
 				return 0
 
-		sleep(0.5)
+		sleep(0.3)
 		pyautogui.click()
 		repeat = 0
 
@@ -106,8 +116,9 @@ def mining_iron():
 
 
 def bank():
+	print("Bank...")
 	clic_delay = 0.5
-	bank_x, bank_y = 628, 405
+	bank_x, bank_y = 582, 460
 	bank_drop_x, bank_drop_y = 656, 708
 
 	pyautogui.moveTo(bank_x, bank_y)
@@ -139,15 +150,34 @@ def rutine_b():
 	if(not tools.schedule(list_sch_b, True)):
 		print("Schedule Fail")
 		tools.exit()
-	
+
+def rutine_pvb():
+	if(not tools.schedule(list_sch_pvb, True)):
+		print("Schedule Fail")
+		tools.exit()
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-b", "--placeb", help="Starting in place B", action="store_true")
+parser.add_argument("-pvp", "--pvpworld", help="Schedule for pvp", action="store_true")
+argum = parser.parse_args()
+
 keyborad_events.start_listener()
+
+if(argum.placeb):
+	mining_iron()
+	rutine_b()
+	bank()
+
 while(True):
 	keyborad_events.main_events()
 	rutine_a()
 
 	mining_iron()
 
-	rutine_b()
+	if(argum.pvpworld):
+		rutine_pvb()
+	else:
+		rutine_b()
 
 	bank()
 

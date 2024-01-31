@@ -20,7 +20,7 @@ cent_plus = 18
 cent_x, cent_y = 575, 490
 
 	
-list_sch_a = [{"x":882, "y":380, "clic":0, "t":2, "c_r": 2, "c_i":1}]
+list_sch_a = [{"x":882, "y":380, "clic":0, "t":2, "c_r": 2, "c_i":2}]
 				
 
 list_sch_b = [{"x":206, "y":617, "clic":0, "t":2, "c_r": 1, "c_i":1}]
@@ -80,6 +80,7 @@ def smithing():
 			return 0
 
 def bank():
+	print("Bank...")
 	clic_delay = 0.5
 	bank_x, bank_y = 576, 513
 	bank_drop_x, bank_drop_y = 1040, 620

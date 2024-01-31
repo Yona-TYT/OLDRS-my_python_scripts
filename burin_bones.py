@@ -2,6 +2,8 @@ import pyautogui
 
 from time import sleep
 
+import argparse
+
 import keyborad_events
 
 screenWidth, screenHeight = pyautogui.size() # Get the size of the primary monitor.
@@ -31,6 +33,9 @@ def tes_plus_cursor(x,y):
 
 
 def bury_bones_normal():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-all", "--allbones", help="Bury all bones", action="store_true")
+	argum = parser.parse_args()
 	# Limites del inventario
 	inv_lim_x_a, inv_lim_y_a = 993, 617
 	inv_lim_x_b, inv_lim_y_b = 1150, 857
@@ -54,7 +59,7 @@ def bury_bones_normal():
 			if(count == 4):
 				plus = 0
 			px = pyautogui.pixel(count_x, inv_lim_y_a)
-			if (px.red ==221 and px.green ==217 and px.blue ==217):
+			if ((px.red ==221 and px.green ==217 and px.blue ==217) or (argum.allbones)):
 				is_bury = True
 				print("Bury bones...Count: %d --- Mouse x:%d,y:%d , Pixel %s" % (count, count_x, inv_lim_y_a, px))
 				pyautogui.click(x = count_x, y = inv_lim_y_a)
@@ -79,6 +84,7 @@ c_list= [
 			{"x":993, "y":833}, {"x":1035, "y":833}, {"x":1077, "y":833}, {"x":1119, "y":833}
 		]
 def bury_bones_combat(inv_lim_x_a, inv_lim_y_a, inv_lim_x_b, inv_lim_y_b, index):
+
 
 	p_x, p_y = 25 , 39
 	x, y = pyautogui.position() # Get the XY position of the mouse.
@@ -131,6 +137,7 @@ keyborad_events.start_listener()
 # Limites del inventario
 inv_lim_x_a, inv_lim_y_a = 993, 617
 inv_lim_x_b, inv_lim_y_b = 1150, 857
+
 index = 0
 while(True):
 	keyborad_events.main_events()

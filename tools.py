@@ -18,28 +18,51 @@ from termcolor import colored
 cent_x, cent_y = 575, 490
 
 def schedule(list_sch, cali = False, idx = 0):
-	counter = idx
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-c", "--count", help="MAx count in schedule", type=int)
+	parser.add_argument("-a", "--agility", help="Agility Mode", action="store_true")
+	argum = parser.parse_args()
+	mark_list = False
+	if(argum.agility):
+		counter = 0
+		mark_list = idx
+	
+	else:
+		counter = idx
 
 	walk_plus_x, walk_plus_y = 0 , 40
 	clic_plus_x, clic_plus_y = 80 , 33
 
 	while (counter < len(list_sch)):
 		keyborad_events.main_events()
+		if(argum.agility ):
+			keyborad_events.main_events()
+			m_idx = list_sch[counter]["i"]
+			if(m_idx > -1):
+				sleep(0.2)
+				i, m_x, m_y, r_x, r_y = mark_list[m_idx]["i"], mark_list[m_idx]["x"], mark_list[m_idx]["y"], mark_list[m_idx]["rx"], mark_list[m_idx]["ry"]
+				px_mark = pyautogui.pixel(m_x, m_y)
+				sleep(0.5)
+				print("Find Mark... Indx: %d , XY: %d,%d -- Pixel %s" % ( m_idx, m_x, m_y, px_mark))
+				if(px_mark.red > 130 and px_mark.green > 110 and px_mark.blue < 15):
+					print("Aqui hay , Aqui hay, Aqui hay...  Mark... index: %d  null %d" % (counter, 0))
+					pyautogui.moveTo(m_x, m_y)
+					sleep(0.8)
+					pyautogui.click(m_x, m_y)
+					sleep(3)
+					pyautogui.moveTo(r_x, r_y)
+					sleep(0.8)
+					pyautogui.click(r_x, r_y)
+					if(wait_in_tile( cent_x, cent_y)):
+						counter = i
+					sleep(0.8)
+					
 		c_x, c_y = list_sch[counter]["x"], list_sch[counter]["y"]
 		delay = list_sch[counter]["t"]
+		opt = list_sch[counter]["clic"]
 		pyautogui.moveTo(c_x, c_y)
-		if(list_sch[counter]["clic"]==1):
-			sleep(0.5)
-			clic_px = pyautogui.pixel(c_x+clic_plus_x , c_y+clic_plus_y)
-			if(clic_px.red ==255 and clic_px.green ==255 and clic_px.blue ==0):
-				pyautogui.click(button='right')
-				sleep(0.5)
-				pyautogui.click(x = c_x + walk_plus_x, y = c_y + walk_plus_y)
 
-			else:
-				pyautogui.click(c_x, c_y)
-
-		elif(list_sch[counter]["clic"]==3):
+		if(opt==3):
 			sleep(1.2)
 			pyautogui.click(c_x, c_y)
 
@@ -54,24 +77,33 @@ def schedule(list_sch, cali = False, idx = 0):
 		# Print values
 		#print("Mouse = %d,%d , Pixel %s, Pixel Center %s" % (x, y, px_cent, px_cent))
 
-		if(list_sch[counter]["clic"]==2):
+		if(opt==2):
 			print("Schedule Skip... Indx: %d , XY: %d,%d -- Pixel %s" % ( counter, c_x, c_y, px_cent))
 			counter = counter + 1
 			continue
 			
-		counter = black_waiting(list_sch, counter, px_cent, cali)
+		counter = black_waiting(list_sch, counter, px_cent, cali, opt, delay, argum)
 		if(counter < 0):
-			return 2
+			if(argum.agility):
+				return counter
+			else:
+				return 2
 						
 	return True
 
-def black_waiting(list_sch, counter, px_cent, cali):
+def black_waiting(list_sch, counter, px_cent, cali, opt, delay, argum):
 
 	count = 0
-	count_max = 80
+	if(argum.count):
+		count_max = argum.count
+
+	else:
+		count_max = 80
+
 	while (px_cent.red !=0 or px_cent.green !=0 or px_cent.blue !=0):
 		keyborad_events.main_events()
 		px_cent = pyautogui.pixel(cent_x, cent_y)
+		c_i = list_sch[counter]["c_i"]
 		#Debug-------------------------------------------------------------------------
 		#pyautogui.moveTo(cent_x, cent_y)
 		#------------------------------------------------------------------------------
@@ -83,11 +115,16 @@ def black_waiting(list_sch, counter, px_cent, cali):
 				return False
 
 			else:
+				if(argum.agility and c_i < 0):
+					return c_i
+
 				if(calibrate(list_sch[counter]["c_r"])):
-					counter = list_sch[counter]["c_i"]
+					counter = c_i
 					print("Calibrate index.. ", counter)
 					return counter
-
+	if(opt == 1):
+		print("Schedule delay 1... Indx: %d , -- Pixel %s" % ( counter, px_cent))
+		sleep(1)
 	counter = counter + 1
 	return counter
 
@@ -115,6 +152,7 @@ def calibrate(ribi):
 	if(ribi>1):
 		mx_count = 44
 
+	clc_try = 0
 	while(True):
 		keyborad_events.main_events()
 		if(ribi == 0):						#Derecha   0
@@ -154,6 +192,11 @@ def calibrate(ribi):
 
 		if (px.red ==0 and px.green ==0 and px.blue ==0):
 
+			if(clc_try > 1):
+				print("Click Skip... ")
+				clc_try = 0
+				continue
+
 			pyautogui.moveTo(x, y)
 			pyautogui.click()
 
@@ -162,8 +205,10 @@ def calibrate(ribi):
 			tt = 0
 
 			if(not wait_in_tile( x, y)):
+				print("Click Try... ", clc_try)
 				x = cent_x
 				y = cent_y
+				clc_try = clc_try + 1
 				continue
 			x = x+x_plus
 			y = y+y_plus
