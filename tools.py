@@ -30,7 +30,7 @@ def schedule(list_sch, cali = False, idx = 0):
 	else:
 		counter = idx
 
-	walk_plus_x, walk_plus_y = 0 , 40
+	walk_plus_x, walk_plus_y = (-5) , 40
 	clic_plus_x, clic_plus_y = 80 , 33
 
 	while (counter < len(list_sch)):
@@ -62,11 +62,21 @@ def schedule(list_sch, cali = False, idx = 0):
 		opt = list_sch[counter]["clic"]
 		pyautogui.moveTo(c_x, c_y)
 
-		if(opt==3):
+		if(opt==4):
+			print("-- Click opt: ",opt)
+			pyautogui.click(button='right')
+			sleep(0.5)
+			pyautogui.moveTo(c_x, c_y+walk_plus_y)
+			sleep(0.5)
+			pyautogui.click(x = c_x + walk_plus_x, y = c_y + walk_plus_y)
+
+		elif(opt==3):
+			print("-- Click opt: ",opt)
 			sleep(1.2)
 			pyautogui.click(c_x, c_y)
 
 		else:
+			print("-- Click opt: ",opt)
 			pyautogui.click(c_x, c_y)
 
 		print("Waiting.. Delay : %f s  Coord: %d, %d --- index: %d" % (delay, c_x, c_y, counter))
@@ -78,11 +88,14 @@ def schedule(list_sch, cali = False, idx = 0):
 		#print("Mouse = %d,%d , Pixel %s, Pixel Center %s" % (x, y, px_cent, px_cent))
 
 		if(opt==2):
+			print("-- Click opt: ",opt)
 			print("Schedule Skip... Indx: %d , XY: %d,%d -- Pixel %s" % ( counter, c_x, c_y, px_cent))
 			counter = counter + 1
 			continue
 			
 		counter = black_waiting(list_sch, counter, px_cent, cali, opt, delay, argum)
+		if(counter is False):
+			return False
 		if(counter < 0):
 			if(argum.agility):
 				return counter
@@ -129,6 +142,7 @@ def black_waiting(list_sch, counter, px_cent, cali, opt, delay, argum):
 	return counter
 
 def calibrate(ribi):
+	#exit()
 	x, y = 575, 490
 	incr_x = 24.5
 	incr_y = 22
@@ -420,6 +434,90 @@ def wait_in_tile(x, y):
 
 	return True
 
+
+def calib_code(code_list, idx, one = False):
+	idx_a = idx
+	try_c = 0
+	idx_a_max = len(code_list)
+	while (True):
+		keyborad_events.main_events()
+		c_list = code_list[idx_a]["list"]
+		idx_b = 0
+		idx_b_max = len(c_list)-1
+		result = {"res": False, "x": code_list[idx_a]["list"][3]["e_x"], "y": code_list[idx_a]["list"][3]["e_y"], "idx":idx_a}
+		while (True):
+			keyborad_events.main_events()
+			x, y = c_list[idx_b]["x"], c_list[idx_b]["y"]
+			px = pyautogui.pixel(x, y)
+			if (px.red ==0 and px.green ==0 and px.blue ==0):
+				result["res"] = True
+
+			else:
+				result["res"] = False
+				print("Debug Exit result: ", result["res"])
+				print( colored( ("-- FAIL Coord: %d, %d -- idx_b %d" % (x, y, idx_b)), "red" ))
+				break
+
+			idx_b = idx_b + 1
+
+			print("Debug Continue result: ", result["res"])
+			print("Debug idx_b: ", idx_b)
+			if (idx_b >= idx_b_max):
+				if(result["res"]):
+					return result
+				else:
+					break
+
+		if(one):
+			return result
+
+		idx_a = idx_a + 1
+
+		print("Debug idx_a: ", idx_a)
+		if (idx_a >= idx_a_max):
+			try_c = try_c + 1
+			idx_a = 0
+			if(try_c > 3):
+				break
+
+	print("Aqui No HAY Aqui No HAY !!!!!!!!")
+	exit()
+	return False
+
+def start_calb_code(c_list, idx = 0, click = True):
+	calib = calib_code(c_list, 0)
+	c_idx = calib["idx"]
+	if(calib["res"]):
+		x, y = calib["x"], calib["y"]
+		clic_delay = 5
+
+		if(not click and idx == c_idx):
+			print("-- No Click idx %d -- c_idx %d" % (idx, c_idx))
+			return True
+
+		pyautogui.moveTo(x, y)
+		sleep(0.7)
+		pyautogui.click()
+		sleep(clic_delay)
+
+	return True
+
+def start_calb_code_idx(c_list, idx, t, click = True):
+	calib = calib_code(c_list, idx, True)
+
+	if(calib["res"]):
+		x, y = calib["x"], calib["y"]
+		clic_delay = t
+
+		if(click):
+			pyautogui.moveTo(x, y)
+			sleep(0.7)
+			pyautogui.click()
+			sleep(clic_delay)
+		return True
+
+	return False
+
 x_max, y_max = 1439, 899
 def get_pixel(x, y):
 	if(x > x_max or y > y_max):
@@ -430,7 +528,12 @@ def get_pixel(x, y):
 	return pyautogui.pixel(x, y)
 
 
-def exit():
+def exit(opt = 0, get_list = False):
+
+	if(opt == 1):
+		print("Return Calibrate Code")
+		result =  start_calb_code(get_list)
+		return result
 	# datetime object containing current date and time
 	now = datetime.now()
 	 
@@ -446,8 +549,6 @@ def exit():
 
 	if(argum.power):
 		t = 30
-
-
 		count = 0
 		while(count < t):
 			print(colored( ("Alert, System poweroff in : " + str(t - count) +" s ... You can press < > to PAUSE."), "red"))

@@ -24,7 +24,7 @@ list_sch_b = [{"x":513, "y":296, "clic":0, "t":2, "c_r": 1, "c_i":1}]
 def smithing():
 	clic_delay = 1.5
 	anvil_x, anvil_y = 584, 511
-	smith_x, smith_y = 418, 461		#steel plateboody
+	smith_x, smith_y = 640, 290		
 
 	pyautogui.moveTo(anvil_x, anvil_y)
 	sleep(clic_delay)
@@ -34,10 +34,10 @@ def smithing():
 	sleep(clic_delay+0.3)
 	pyautogui.click(smith_x, smith_y)
 
-	inven_check_x, inven_check_y = 1039, 835
+	inven_check_x, inven_check_y = 1130, 830
 
 	count = 0
-	count_max = 100
+	count_max = 500
 
 	while (True):
 		keyborad_events.main_events()
@@ -65,15 +65,7 @@ def smithing():
 		count = count + 1
 		print("Smithing... Count %d, Pixel %s" % (count, px_inv))
 		if (px_inv.red ==62 and px_inv.green ==53 and px_inv.blue ==41):
-			run_x, run_y = 1008, 201
-			clic_delay = 0.5
-			sleep(clic_delay)
-			px_run = pyautogui.pixel(run_x, run_y)
-			sleep(clic_delay)
-			if(px_run.green < 200):
-				pyautogui.moveTo(run_x, run_y)
-				sleep(clic_delay)
-				pyautogui.click(run_x, run_y)
+
 	
 			return True
 

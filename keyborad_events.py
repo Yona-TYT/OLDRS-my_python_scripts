@@ -6,6 +6,8 @@ import os
 
 from pynput import keyboard
 
+from termcolor import colored
+
 import threading
 
 import queue
@@ -39,7 +41,7 @@ def on_release(key):
 def main_events():
 	if(not ok_key.empty()):
 		pyautogui.keyUp('shift')
-		print("Script Pause...")
+		print(colored( ("Script Pause..."), "red"))
 		ok_key.queue.clear()
 		while (True):
 			if(not ok_key.empty()):
@@ -51,7 +53,7 @@ def main_events():
 
 def main_pause():
 	pyautogui.keyUp('shift')
-	print("Script Pause...")
+	print(colored( ("Script Pause..."), "red"))
 	while (True):
 		if(not ok_key.empty()):
 			ok_key.queue.clear()

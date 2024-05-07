@@ -1,66 +1,19 @@
 import pyautogui
 
-import sys
-
 from time import sleep
 
 import keyborad_events
 
 import starting
 
-screenWidth, screenHeight = pyautogui.size() # Get the size of the primary monitor.
-x, y = pyautogui.position() # Get the XY position of the mouse.
-px = pyautogui.pixel(x, y)
-
-
-# Limites del inventario
-inv_lim_a, inv_lim_b = 404, 326
-
-# Initialize counter
-cent_plus = 18
+import tools
 
 # Centro de la pantalla
 cent_x, cent_y = 575, 490
 
-ribi_plus = 50
-ribi = [{"x":700+ribi_plus, "y":480}, {"x":700, "y":480+ribi_plus}, {"x":700-ribi_plus, "y":480}, {"x":700, "y":480-ribi_plus}]
-	
-list_sch_a = [{"x":882, "y":380, "r":0}]
-				
+list_sch_a = [{"x":882, "y":380, "clic":0, "t":2, "c_r": 2, "c_i":2}]
 
-list_sch_b = [{"x":206, "y":617, "r":0}]
-
-def schedule(list_sch):
-	counter = 0
-	delay = 3
-
-	while (counter < len(list_sch)):
-		keyborad_events.main_events()
-		pyautogui.moveTo(list_sch[counter]["x"], list_sch[counter]["y"])
-		pyautogui.click()
-
-		print("Waiting.. Delay")
-		sleep(delay)
-
-		x, y = pyautogui.position() # Get the XY position of the mouse.
-		px_cent = pyautogui.pixel(cent_x, cent_y)
-		# Print values
-		#print("Mouse = %d,%d , Pixel %s, Pixel Center %s" % (x, y, px_cent, px_cent))
-
-		count = 0
-		count_max = 40
-		while (px_cent.red !=0 or px_cent.green !=0 or px_cent.blue !=0):
-			keyborad_events.main_events()
-			px_cent = pyautogui.pixel(cent_x, cent_y)
-			#pyautogui.moveTo(cent_x, cent_y)
-			count = count + 1
-			print("Schedule... Count %d, Pixel %s" % (count, px_cent))
-
-			if(count > count_max):
-				return False
-		
-		counter = counter + 1
-	return True
+list_sch_b = [{"x":206, "y":617, "clic":0, "t":2, "c_r": 1, "c_i":1}]
 
 def is_working(c, pixel):
 	px = pyautogui.pixel(c["x"], c["y"])
@@ -92,9 +45,11 @@ def smithing():
 	c_try = 0
 	while (True):
 		keyborad_events.main_events()
-		if(not is_working(w_c, pixel) and count > 20):
+		if(not is_working(w_c, pixel) and count > count_max):
 			if(c_try>3):
-				return 0
+				print("No more try..!!")
+				tools.exit()
+
 			pyautogui.moveTo(furnace_x, furnace_y)
 			sleep(clic_delay)
 			pyautogui.click()
@@ -108,14 +63,7 @@ def smithing():
 		px_inv = pyautogui.pixel(inven_check_x, inven_check_y)
 		count = count + 1
 		print("Smithing... Count %d, Pixel %s" % (count, px_inv))
-		if (px_inv.red ==62 and px_inv.green ==53 and px_inv.blue ==41):
-			run_x, run_y = 1002, 201
-			px_run = pyautogui.pixel(run_x, run_y)
-			if(px_run.green < 200):
-				pyautogui.moveTo(run_x, run_y)
-				sleep(clic_delay)
-				pyautogui.click()
-	
+		if (px_inv.red >200 and px_inv.green >150 and px_inv.blue < 30):
 			return 0
 
 def crafting():
@@ -141,9 +89,10 @@ def crafting():
 	c_try = 0
 	while (True):
 		keyborad_events.main_events()
-		if(not is_working(w_c, pixel) and count > 20):
+		if(not is_working(w_c, pixel) and count > count_max):
 			if(c_try>3):
-				sys.exit()
+				print("No more try..!!")
+				tools.exit()
 			pyautogui.moveTo(furnace_x, furnace_y)
 			sleep(clic_delay)
 			pyautogui.click()
@@ -157,14 +106,7 @@ def crafting():
 		px_inv = pyautogui.pixel(inven_check_x, inven_check_y)
 		count = count + 1
 		print("Crafting... Count %d, Pixel %s" % (count, px_inv))
-		if (px_inv.red ==62 and px_inv.green ==53 and px_inv.blue ==41):
-			run_x, run_y = 1002, 201
-			px_run = pyautogui.pixel(run_x, run_y)
-			if(px_run.green < 200):
-				pyautogui.moveTo(run_x, run_y)
-				sleep(clic_delay)
-				pyautogui.click()
-	
+		if (px_inv.red < 150 and px_inv.green < 150 and px_inv.blue < 20):
 			return 0
 
 def bank():
@@ -195,18 +137,18 @@ keyborad_events.start_listener()
 
 c_tag = {"x":370, "y":126}
 c_bank = {"x":576, "y":513}
-starting.starting_bank(c_tag, c_bank)
-pyautogui.click(300, 272)
+#starting.starting_bank(c_tag, c_bank, False)
+#pyautogui.click(300, 272)
 
 while(True):
 	bank()
-	if(not schedule(list_sch_a)):
+	if(not tools.schedule(list_sch_a, True)):
 		print("Schedule Fail")
-		break
+		tools.exit()
 	smithing()
 	crafting()
-	if(not schedule(list_sch_b)):
+	if(not tools.schedule(list_sch_b, True)):
 		print("Schedule Fail")
-		break
+		tools.exit()
 
 

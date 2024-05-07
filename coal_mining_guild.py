@@ -54,6 +54,60 @@ ore_list =	[
 		]
 
 
+code_list_a = [{"x":671, "y": 619}, {"x":553, "y": 651}, {"x":293, "y": 369}, {"e_x":608, "e_y":486}]
+code_list_b = [{"x":869, "y": 587}, {"x":277, "y": 435}, {"x":187, "y": 560}, {"e_x":558, "e_y":485}]
+code_list_c = [{"x":722, "y": 560}, {"x":105, "y": 480}, {"x":222, "y": 368}, {"e_x":530, "e_y":487}]
+code_list_d = [{"x":697, "y": 360}, {"x":468, "y": 590}, {"x":828, "y": 535}, {"e_x":530, "e_y":440}]
+code_list_e = [{"x":605, "y": 330}, {"x":165, "y": 460}, {"x":745, "y": 375}, {"e_x":580, "e_y":460}]
+code_list_f = [{"x":690, "y": 530}, {"x":580, "y": 565}, {"x":335, "y": 315}, {"e_x":630, "e_y":420}]
+code_list_g = [{"x":630, "y": 460}, {"x":230, "y": 510}, {"x":885, "y": 530}, {"e_x":580, "e_y":440}]
+code_list_h = [{"x":352, "y": 330}, {"x":610, "y": 590}, {"x":805, "y": 355}, {"e_x":655, "e_y":442}]
+
+code_list_i = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+code_list_j = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+code_list_k = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+code_list_l = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+code_list_m = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+code_list_n = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+
+code_list = [
+				{"list": code_list_a}, {"list": code_list_b}, {"list": code_list_c},
+				{"list": code_list_d}, {"list": code_list_e}, {"list": code_list_f},
+				{"list": code_list_g}, {"list": code_list_h}
+			]
+
+
+mark_list_a = [{"x":514, "y": 374}, {"x":761, "y": 355}, {"x":776, "y": 447}, {"e_x":530, "e_y":488}]
+mark_list_b = [{"x":554, "y": 742}, {"x":511, "y": 554}, {"x":329, "y": 471}, {"e_x":487, "e_y":443}]
+mark_list_c = [{"x":339, "y": 531}, {"x":420, "y": 580}, {"x":679, "y": 318}, {"e_x":462, "e_y":442}]
+mark_list_d = [{"x":668, "y": 847}, {"x":840, "y": 470}, {"x":490, "y": 534}, {"e_x":582, "e_y":508}]
+
+mark_list_e = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+mark_list_ae = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+mark_list_ab = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+mark_list_ac = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+
+mark_list = [
+				{"list": mark_list_a}, {"list": mark_list_b}, {"list": mark_list_c}, {"list": mark_list_d}
+
+			]
+
+mine_list_a = [{"x":514, "y": 374}, {"x":761, "y": 355}, {"x":776, "y": 447}, {"e_x":580, "e_y":488}]
+mine_list_b = [{"x":554, "y": 742}, {"x":511, "y": 554}, {"x":329, "y": 471}, {"e_x":535, "e_y":443}]
+mine_list_c = [{"x":339, "y": 531}, {"x":420, "y": 580}, {"x":679, "y": 318}, {"e_x":510, "e_y":442}]
+mine_list_d = [{"x":668, "y": 847}, {"x":840, "y": 470}, {"x":490, "y": 534}, {"e_x":635, "e_y":508}]
+
+mine_list_e = [{"x":563, "y": 243}, {"x":483, "y": 440}, {"x":367, "y": 510}, {"e_x":511, "e_y":422}]
+mine_list_f = [{"x":383, "y": 721}, {"x":212, "y": 415}, {"x":171, "y": 762}, {"e_x":505, "e_y":460}]
+mine_list_g = [{"x":260, "y": 685}, {"x":638, "y": 505}, {"x":205, "y": 435}, {"e_x":505, "e_y":485}]
+mine_list_h = [{"x":377, "y": 436}, {"x":679, "y": 683}, {"x":618, "y": 755}, {"e_x":522, "e_y":653}]
+mine_list_hh = [{"x":0, "y": 0}, {"x":0, "y": 0}, {"x":0, "y": 0}, {"e_x":0, "e_y":0}]
+
+mine_list = [
+				{"list": mine_list_a}, {"list": mine_list_b}, {"list": mine_list_c}, {"list": mine_list_d}
+
+			]
+
 # Centro de la pantalla para mining
 cen_min_x, cen_min_y = 580, 482
 def mining(c_list, idx):
@@ -62,6 +116,8 @@ def mining(c_list, idx):
 	idx_b = 1
 	gold_plus_x, gold_plus_y = 77 , 33
 	delay = 3
+	esp_x, esp_y = 996, 231
+	min_try = 0
 	while (True):
 		print("Debug... Idx ab: %d, %d " % ( idx_a, idx_b))
 		if(idx_b == len(c_list[0])):
@@ -70,6 +126,13 @@ def mining(c_list, idx):
 			keyborad_events.main_events()
 			c_x , c_y, r, i = c_list[idx_a][idx_b]["x"] + cal_x, c_list[idx_a][idx_b]["y"]+ cal_y, c_list[idx_a][idx_b]["r"], c_list[idx_a][idx_b]["i"]
 			px = pyautogui.pixel(c_x, c_y)
+			if(min_try > 10):
+				print("Calibrate code (code)")
+				px_calib = pyautogui.pixel(cent_x, cent_y)
+				if (px_calib.red !=0 or px_calib.green !=0 or px_calib.blue !=0):
+					tools.start_calb_code(code_list)
+					return 0
+				
 			print("-- Find Mine... x: %d, y: %d, Idx ab: %d, %d --  Pixel %s" % (c_x, c_y, idx_a, idx_b, px))
 			inven_check_x, inven_check_y = 1125, 835
 			px_inv = pyautogui.pixel(inven_check_x, inven_check_y)
@@ -114,16 +177,24 @@ def mining(c_list, idx):
 					print("Chag Mine... Count %d, Pixel %s" % (count, px_cent))
 
 					if(count > count_max):
-						print("Schedule Fail")
-						#if(tools.calibrate(3)):
-						#	tools.schedule(list_sch_min, True)
-						#	break
-						#else:
-						return tools.exit()
+						print("Calibrate code (code)")
+						px_calib = pyautogui.pixel(cent_x, cent_y)
+						if (px_calib.red !=0 or px_calib.green !=0 or px_calib.blue !=0):
+							tools.start_calb_code(code_list)
+							return 0
 
 				pyautogui.moveTo(c["x"], c["y"])
 				pyautogui.click(c["x"], c["y"])
 				px_gold = pyautogui.pixel(c["x"]+gold_plus_x, c["y"]+gold_plus_y)
+
+				px_esp = pyautogui.pixel(esp_x, esp_y)
+				if (px_esp.red == 0 and px_esp.green == 255 and px_esp.blue == 0):
+					sleep(0.5)
+					pyautogui.moveTo(esp_x+22, esp_y-5)
+					pyautogui.click(esp_x+22, esp_y-5)
+					sleep(0.5)
+
+
 				print("Mining... Coord x: %d, y: %d, Idx ab: %d, %d --  Pixel %s" % (c["x"], c["y"], idx_a, idx_b, px_gold))
 				repeat = 0
 				r_max = 50
@@ -145,6 +216,7 @@ def mining(c_list, idx):
 
 				return i
 			idx_b = idx_b +1
+			min_try = min_try +1
 
 
 	return 0
